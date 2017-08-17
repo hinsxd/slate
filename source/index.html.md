@@ -153,7 +153,6 @@ For custom types like `ttClass`, the method `getSerializableExtra` will be used 
 # Appearance
 ## Splash
 
-The Splash is a blank page that request permission to prevent app crash.
 
 
 ## Inbox
