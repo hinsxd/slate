@@ -371,10 +371,11 @@
 <h1 id='activities'>Activities</h1><h2 id='splash-java'>Splash.java</h2>
 <p>A splash screen that request permission before the app starts.</p>
 <h2 id='inbox-java'>Inbox.java</h2>
-<p>Shows the list existing Trouble Tickets using the method <code>loadMessageList()</code>.
-The app reads through all SMSs by chronological order and determines the current status of each Trouble Ticket.</p>
+<p>Shows the list existing Trouble Tickets. Trouble Tickets can be filtered their status with the top-left button <code>filterBtn</code>.</p>
 
-<p>Swipe down to reload. Trouble Tickets can be searched and filtered.</p>
+<p><code>loadTTList()</code> will be executed to load and group the SMSs according to their <code>TTIds</code> in the format of <code>001-xxxxxx-yyy</code>, followed by <code>parseSMS()</code> of <a href="#ttclass"><code>ttClass</code></a> to determine the status, then applying the filter function mentioned above.</p>
+
+<p>Swipe down to reload.</p>
 <h2 id='ttdetail-java'>TTDetail.java</h2>
 <p>Shows the details of a Trouble Ticket. The interface changes according to the status.</p>
 
