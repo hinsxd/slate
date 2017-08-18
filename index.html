@@ -388,6 +388,8 @@ The app reads through all SMSs by chronological order and determines the current
 <h1 id='object-classes'>Object Classes</h1><h2 id='ttclass-java'>ttClass.java</h2>
 <p>Holds the details of Trouble Ticket Object used in this project. It contains a method to parse all sent and received SMSs to a specific Trouble to determine the current status.</p>
 
+<p>In each Current Status, the content of a new SMS will be checked and cause a transition in the status as below:</p>
+
 <table>
   <thead>
     <th>Current id</th>
