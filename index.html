@@ -222,7 +222,7 @@
             <a href="#app-files" class="toc-h1 toc-link" data-title="App files">App files</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#global-variable-file" class="toc-h2 toc-link" data-title="App files">Global variable file</a>
+                    <a href="#global-variable-file-code-eoms-java-code" class="toc-h2 toc-link" data-title="App files">Global variable file <code>EOMS.java</code></a>
                   </li>
                   <li>
                     <a href="#activities" class="toc-h2 toc-link" data-title="App files">Activities</a>
@@ -244,12 +244,28 @@
 <p>This is a documentation for editing the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.</p>
 
 <p>This documentation page was created with <a href="https://github.com/tripit/slate">Slate</a> and the App was created with <a href="https://developer.android.com/studio/index.html">Android Studio</a> using the template <a href="https://github.com/IOException722/SmsBiz">Smsbiz</a>.</p>
-<h1 id='app-files'>App files</h1><h2 id='global-variable-file'>Global variable file</h2><h3 id='eoms-java'>EOMS.java</h3>
-<p>It holds most editable settings of the App.</p>
-<pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">statusStrings</span>
-</code></pre>
-<p>A string array which contains the available status of a Trouble Ticket. The index of each item corresponds to the <code>int statusId</code> of a Trouble Ticket.</p>
-<h2 id='activities'>Activities</h2><h3 id='splash-java'>Splash.java</h3>
+<h1 id='app-files'>App files</h1><h2 id='global-variable-file-code-eoms-java-code'>Global variable file <code>EOMS.java</code></h2><h3 id='status-strings'>Status Strings</h3>
+<p><code>private final static String[] statusStrings;</code></p>
+
+<p>A string array which contains the available status of a Trouble Ticket. The index of each item should be consistent to the <a href="#ttClass"><code>int statusId</code></a> of a Trouble Ticket.</p>
+<h3 id='trouble-ticket-status-icon'>Trouble Ticket Status Icon</h3>
+<p><code>private static int[] statusIconResources;</code></p>
+
+<p>A list containing the resources of icon shown in Inbox. Again, the index of the icon should follow the order of the status.</p>
+
+<p>New icon can be added by <code>File &gt; New &gt; Image Asset</code></p>
+
+<p>statusId | String | Icon Resource | Icon
+---------|--------|------
+0|Empty TT| /|
+1|New|<code>R.drawable.newtt</code>|<img src="./images/newtt.png" />
+2|Accepting|<code>R.drawable.waitingtt</code>|
+3|Working|<code>R.drawable.workingtt</code>|
+4|Finishing|<code>R.drawable.waitingtt</code>|
+5|Finished and Closed|<code>R.drawable.finishtt</code>|
+6|Rejected|<code>R.drawable.rejecttt</code>|
+7|Closed|<code>R.drawable.closett</code>|</p>
+<h3 id='reasons-trouble-cause'>Reasons / Trouble Cause</h3><h2 id='activities'>Activities</h2><h3 id='splash-java'>Splash.java</h3>
 <p>A splash screen that request permission before the app starts.</p>
 <h3 id='inbox-java'>Inbox.java</h3>
 <p>Shows the list existing Trouble Tickets using the method <code>loadMessageList()</code>.
