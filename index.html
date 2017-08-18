@@ -219,16 +219,44 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#app-files" class="toc-h1 toc-link" data-title="App files">App files</a>
+            <a href="#global-variable-file-code-eoms-java-code" class="toc-h1 toc-link" data-title="Global variable file <code>EOMS.java</code>">Global variable file <code>EOMS.java</code></a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#global-variable-file-code-eoms-java-code" class="toc-h2 toc-link" data-title="App files">Global variable file <code>EOMS.java</code></a>
+                    <a href="#status-strings" class="toc-h2 toc-link" data-title="Global variable file <code>EOMS.java</code>">Status Strings</a>
                   </li>
                   <li>
-                    <a href="#activities" class="toc-h2 toc-link" data-title="App files">Activities</a>
+                    <a href="#trouble-ticket-status-icon" class="toc-h2 toc-link" data-title="Global variable file <code>EOMS.java</code>">Trouble Ticket Status Icon</a>
                   </li>
                   <li>
-                    <a href="#object-classes" class="toc-h2 toc-link" data-title="App files">Object Classes</a>
+                    <a href="#reasons-trouble-cause" class="toc-h2 toc-link" data-title="Global variable file <code>EOMS.java</code>">Reasons / Trouble Cause</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#activities" class="toc-h1 toc-link" data-title="Activities">Activities</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#splash-java" class="toc-h2 toc-link" data-title="Activities">Splash.java</a>
+                  </li>
+                  <li>
+                    <a href="#inbox-java" class="toc-h2 toc-link" data-title="Activities">Inbox.java</a>
+                  </li>
+                  <li>
+                    <a href="#ttdetail-java" class="toc-h2 toc-link" data-title="Activities">TTDetail.java</a>
+                  </li>
+                  <li>
+                    <a href="#smsrecord-java" class="toc-h2 toc-link" data-title="Activities">SMSRecord.java</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#object-classes" class="toc-h1 toc-link" data-title="Object Classes">Object Classes</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#ttclass-java" class="toc-h2 toc-link" data-title="Object Classes">ttClass.java</a>
+                  </li>
+                  <li>
+                    <a href="#smsclass-java" class="toc-h2 toc-link" data-title="Object Classes">smsClass.java</a>
                   </li>
               </ul>
           </li>
@@ -244,7 +272,7 @@
 <p>This is a documentation for editing the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.</p>
 
 <p>This documentation page was created with <a href="https://github.com/tripit/slate">Slate</a> and the App was created with <a href="https://developer.android.com/studio/index.html">Android Studio</a> using the template <a href="https://github.com/IOException722/SmsBiz">Smsbiz</a>.</p>
-<h1 id='app-files'>App files</h1><h2 id='global-variable-file-code-eoms-java-code'>Global variable file <code>EOMS.java</code></h2><h3 id='status-strings'>Status Strings</h3><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">statusStrings</span> <span class="o">=</span> <span class="o">{</span>
+<h1 id='global-variable-file-code-eoms-java-code'>Global variable file <code>EOMS.java</code></h1><h2 id='status-strings'>Status Strings</h2><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">statusStrings</span> <span class="o">=</span> <span class="o">{</span>
   <span class="s">"Empty TT"</span><span class="o">,</span>
   <span class="s">"New"</span><span class="o">,</span>
   <span class="s">"Accepting"</span><span class="o">,</span>
@@ -258,7 +286,7 @@
 <p><code>private final static String[] statusStrings;</code></p>
 
 <p>A string array which contains the available status of a Trouble Ticket. The index of each item should be consistent to the <a href="#ttClass"><code>int statusId</code></a> of a Trouble Ticket.</p>
-<h3 id='trouble-ticket-status-icon'>Trouble Ticket Status Icon</h3>
+<h2 id='trouble-ticket-status-icon'>Trouble Ticket Status Icon</h2>
 <p><code>private static int[] statusIconResources;</code></p>
 
 <p>A list containing the resources of icon shown in Inbox. Again, the index of the icon should follow the order of the status.</p>
@@ -322,7 +350,7 @@
 <td><img src="./images/closett.png" /></td>
 </tr>
 </tbody></table>
-<h3 id='reasons-trouble-cause'>Reasons / Trouble Cause</h3><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">LinkedHashMap</span> <span class="n">reasonsArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">(){{</span>
+<h2 id='reasons-trouble-cause'>Reasons / Trouble Cause</h2><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">LinkedHashMap</span> <span class="n">reasonsArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">(){{</span>
   <span class="n">put</span><span class="o">(</span><span class="s">"Select reason category"</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span>
     <span class="s">""</span>
   <span class="o">});</span>
@@ -340,14 +368,14 @@
 <p>An <code>Other</code> option will cause a user-input field appear to prompt for input for customized reasons.</p>
 
 <p>The categories and reasons shown in the user interface will remain the same order as they are added.</p>
-<h2 id='activities'>Activities</h2><h3 id='splash-java'>Splash.java</h3>
+<h1 id='activities'>Activities</h1><h2 id='splash-java'>Splash.java</h2>
 <p>A splash screen that request permission before the app starts.</p>
-<h3 id='inbox-java'>Inbox.java</h3>
+<h2 id='inbox-java'>Inbox.java</h2>
 <p>Shows the list existing Trouble Tickets using the method <code>loadMessageList()</code>.
 The app reads through all SMSs by chronological order and determines the current status of each Trouble Ticket.</p>
 
 <p>Swipe down to reload. Trouble Tickets can be searched and filtered.</p>
-<h3 id='ttdetail-java'>TTDetail.java</h3>
+<h2 id='ttdetail-java'>TTDetail.java</h2>
 <p>Shows the details of a Trouble Ticket. The interface changes according to the status.</p>
 
 <p>When the Trouble Ticket is waiting user&#39;s <code>Accept</code> or <code>Reject</code>, only the two buttons will appear.</p>
@@ -355,11 +383,11 @@ The app reads through all SMSs by chronological order and determines the current
 <p>After Accepting the Trouble Ticket and receiving a <code>successful</code> message from the system, the status will turn <code>Working</code>. A <code>Finish</code> Button with a pull down menu for choosing reasons will appear.</p>
 
 <p>In all other cases, there will be no choice of action available.</p>
-<h3 id='smsrecord-java'>SMSRecord.java</h3>
+<h2 id='smsrecord-java'>SMSRecord.java</h2>
 <p>Displays a complete SMS record between the user and system response on a particular Trouble Ticket.</p>
-<h2 id='object-classes'>Object Classes</h2><h3 id='ttclass-java'>ttClass.java</h3>
+<h1 id='object-classes'>Object Classes</h1><h2 id='ttclass-java'>ttClass.java</h2>
 <p>Holds the details of Trouble Ticket Object used in this project. It contains a method to parse all sent and received SMSs to a specific Trouble to determine the current status.</p>
-<h3 id='smsclass-java'>smsClass.java</h3>
+<h2 id='smsclass-java'>smsClass.java</h2>
 <p>Holds the raw data of an SMS.</p>
 
       </div>
