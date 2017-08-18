@@ -244,7 +244,22 @@
 <p>This is a documentation for editing the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.</p>
 
 <p>This documentation page was created with <a href="https://github.com/tripit/slate">Slate</a> and the App was created with <a href="https://developer.android.com/studio/index.html">Android Studio</a> using the template <a href="https://github.com/IOException722/SmsBiz">Smsbiz</a>.</p>
-<h1 id='app-files'>App files</h1><h2 id='activities'>Activities</h2><h3 id='splash-java'>Splash.java</h3><h3 id='inbox-java'>Inbox.java</h3><h3 id='ttdetail-java'>TTDetail.java</h3><h3 id='smsrecord-java'>SMSRecord.java</h3><h2 id='object-classes'>Object Classes</h2><h3 id='ttclass-java'>ttClass.java</h3><h3 id='smsclass-java'>smsClass.java</h3>
+<h1 id='app-files'>App files</h1><h2 id='activities'>Activities</h2><h3 id='splash-java'>Splash.java</h3>
+<p>A splash screen that request permission before the app starts.</p>
+<h3 id='inbox-java'>Inbox.java</h3>
+<p>Shows the list existing Trouble Tickets using the method <code>loadMessageList()</code>.
+The app reads through all SMSs by chronological order and determines the current status of each Trouble Ticket.</p>
+
+<p>Swipe down to reload. Trouble Tickets can be searched and filtered.</p>
+<h3 id='ttdetail-java'>TTDetail.java</h3>
+<p>Shows the details of a Trouble Ticket. The interface changes according to the status.</p>
+
+<p>When the Trouble Ticket is waiting user&#39;s <code>Accept</code> or <code>Reject</code>, only the two buttons will appear.</p>
+
+<p>After Accepting the Trouble Ticket and receiving a <code>successful</code> message from the system, the status will turn <code>Working</code>. A <code>Finish</code> Button with a pull down menu for choosing reasons will appear.</p>
+
+<p>In all other cases, there will be no choice of action available.</p>
+<h3 id='smsrecord-java'>SMSRecord.java</h3><h2 id='object-classes'>Object Classes</h2><h3 id='ttclass-java'>ttClass.java</h3><h3 id='smsclass-java'>smsClass.java</h3>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
