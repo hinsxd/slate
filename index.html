@@ -244,7 +244,17 @@
 <p>This is a documentation for editing the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.</p>
 
 <p>This documentation page was created with <a href="https://github.com/tripit/slate">Slate</a> and the App was created with <a href="https://developer.android.com/studio/index.html">Android Studio</a> using the template <a href="https://github.com/IOException722/SmsBiz">Smsbiz</a>.</p>
-<h1 id='app-files'>App files</h1><h2 id='global-variable-file-code-eoms-java-code'>Global variable file <code>EOMS.java</code></h2><h3 id='status-strings'>Status Strings</h3>
+<h1 id='app-files'>App files</h1><h2 id='global-variable-file-code-eoms-java-code'>Global variable file <code>EOMS.java</code></h2><h3 id='status-strings'>Status Strings</h3><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">statusStrings</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="s">"Empty TT"</span><span class="o">,</span>
+  <span class="s">"New"</span><span class="o">,</span>
+  <span class="s">"Accepting"</span><span class="o">,</span>
+  <span class="s">"Working"</span><span class="o">,</span>
+  <span class="s">"Finishing"</span><span class="o">,</span>
+  <span class="s">"Finished and Closed"</span><span class="o">,</span>
+  <span class="s">"Rejected"</span><span class="o">,</span>
+  <span class="s">"Closed"</span>
+<span class="o">};</span>
+</code></pre>
 <p><code>private final static String[] statusStrings;</code></p>
 
 <p>A string array which contains the available status of a Trouble Ticket. The index of each item should be consistent to the <a href="#ttClass"><code>int statusId</code></a> of a Trouble Ticket.</p>
@@ -253,7 +263,7 @@
 
 <p>A list containing the resources of icon shown in Inbox. Again, the index of the icon should follow the order of the status.</p>
 
-<p>New icon can be added by <code>File &gt; New &gt; Image Asset</code></p>
+<p>New icon can be added by <code>File &gt; New &gt; Image Asset</code>, then putting the corresponding Resource id <code>R.drawable.xxxxx</code> in the array.</p>
 
 <table><thead>
 <tr>
@@ -312,7 +322,25 @@
 <td><img src="./images/closett.png" /></td>
 </tr>
 </tbody></table>
-<h3 id='reasons-trouble-cause'>Reasons / Trouble Cause</h3><h2 id='activities'>Activities</h2><h3 id='splash-java'>Splash.java</h3>
+<h3 id='reasons-trouble-cause'>Reasons / Trouble Cause</h3><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">LinkedHashMap</span> <span class="n">reasonsArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">(){{</span>
+  <span class="n">put</span><span class="o">(</span><span class="s">"Select reason category"</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span>
+    <span class="s">""</span>
+  <span class="o">});</span>
+  <span class="n">put</span><span class="o">(</span><span class="s">"External"</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span>
+    <span class="s">"Power outage"</span><span class="o">,</span>
+    <span class="s">"Client-side equipment"</span><span class="o">,</span>
+    <span class="s">"Network operator’s equipment"</span><span class="o">,</span>
+    <span class="s">"Network operator’s transmission circuit"</span><span class="o">,</span>
+    <span class="s">"Others"</span>
+  <span class="o">});</span>
+<span class="o">}};</span>
+</code></pre>
+<p>To add new categories of reason, simply add a new <code>put(String, new String[]{String, String, ...});</code> in this function. The First string will be the category, followed by the string array which contains the corresponding reasons.</p>
+
+<p>An <code>Other</code> option will cause a user-input field appear to prompt for input for customized reasons.</p>
+
+<p>The categories and reasons shown in the user interface will remain the same order as they are added.</p>
+<h2 id='activities'>Activities</h2><h3 id='splash-java'>Splash.java</h3>
 <p>A splash screen that request permission before the app starts.</p>
 <h3 id='inbox-java'>Inbox.java</h3>
 <p>Shows the list existing Trouble Tickets using the method <code>loadMessageList()</code>.
