@@ -387,6 +387,77 @@ The app reads through all SMSs by chronological order and determines the current
 <p>Displays a complete SMS record between the user and system response on a particular Trouble Ticket.</p>
 <h1 id='object-classes'>Object Classes</h1><h2 id='ttclass-java'>ttClass.java</h2>
 <p>Holds the details of Trouble Ticket Object used in this project. It contains a method to parse all sent and received SMSs to a specific Trouble to determine the current status.</p>
+
+<table>
+  <tr>
+    <th>Current id</th>
+    <th>Name</th>
+    <th>Detects</th>
+    <th>Next</th>
+  </tr>
+  <tr>
+    <td rowspan="2">1</td>
+    <td rowspan="2">New</td>
+    <td>#A#</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>#R#</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td rowspan="3">2</td>
+    <td rowspan="3">Accepting</td>
+    <td>error</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>already closed<br>already finished</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Working</td>
+    <td>#F#</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td rowspan="3">4</td>
+    <td rowspan="3">Finishing</td>
+    <td>error</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>already closedalready finished</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Finished and Closed</td>
+    <td>/</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>Rejected</td>
+    <td>/</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>Closed</td>
+    <td>/</td>
+    <td></td>
+  </tr>
+</table>
 <h2 id='smsclass-java'>smsClass.java</h2>
 <p>Holds the raw data of an SMS.</p>
 
