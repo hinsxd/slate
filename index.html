@@ -371,7 +371,9 @@
 <h1 id='activities'>Activities</h1><h2 id='splash-java'>Splash.java</h2>
 <p>A splash screen that request permission before the app starts.</p>
 <h2 id='inbox-java'>Inbox.java</h2>
-<p>Shows the list existing Trouble Tickets. Trouble Tickets can be filtered their status with the top-left button <code>filterBtn</code>.</p>
+<p>Shows the list existing Trouble Tickets. Trouble Tickets can be filtered their status with the top-left <code>filterBtn</code>.</p>
+
+<p>The Title and ID of Trouble Tickets can be searched with the top-right <code>searchBtn</code>.</p>
 
 <p><code>loadTTList()</code> will be executed to load and group the SMSs according to their <code>TTIds</code> in the format of <code>001-xxxxxx-yyy</code>, followed by <code>parseSMS()</code> of <a href="#ttclass"><code>ttClass</code></a> to determine the status, then applying the filter function mentioned above.</p>
 
@@ -439,7 +441,7 @@
     <td>5</td>
   </tr>
   <tr>
-    <td>already closedalready finished</td>
+    <td>already closed<br>already finished</td>
     <td>7</td>
   </tr>
   <tr>
