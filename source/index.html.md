@@ -1,8 +1,5 @@
 ---
-title: EOMS API Reference
-
-language_tabs: # must be one of https://git.io/vQNgJ
-  - java
+title: EOMS Editing Documentation
 
 toc_footers:
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -11,156 +8,173 @@ search: true
 ---
 
 # Introduction
-This is a documentation for the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.
+This is a documentation for editing the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.
 
 This documentation page was created with [Slate](https://github.com/tripit/slate) and the App was created with [Android Studio](https://developer.android.com/studio/index.html) using the template [Smsbiz](https://github.com/IOException722/SmsBiz).
 
-# `ttClass` - a class that stores TT details
-Class Method | Description
--|-
-`String getTTId()` | Return the Trouble Ticket ID in format `001-xxxxxx-yyy`
-`String getTitle()` | Return the Trouble Ticket Title
-`int getStatusId()` | Return an integer that corresponds to different status
-`String[] getStrings()` | Return a string array that contains the names of different status
-`String getCreateTime()` | Return the create time of the Trouble Ticket in format `yyyy-MM-dd HH:mm:ss`
-`String getUpdateTime()` | Return received time of the latest SMS in format `yyyy-MM-dd HH:mm:ss`
-`String getOriginator()` | Return the name of the originator of the Trouble Ticket
-`ArrayList<smsClass> getSms()` | Return an ArrayList of SMSs of this Trouble Ticket
-`void putSms(smsClass sms)` | Add an SMS to the record of this Trouble Ticket
-`void parseSms()` | Parse all SMSs under this Trouble Ticket chronologically to determine the current status
+# Global variable file `EOMS.java`
 
-Explanation for `putSms()` and `parseSms()` can be found in [Program Flow](#program-flow)
-
-# Android App structure
-## App events
-
-> This will be executed when the `Activity` Loads.
-
+## Status Strings
 ```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  ...
-}
+private final static String[] statusStrings = {
+  "Empty TT",
+  "New",
+  "Accepting",
+  "Working",
+  "Finishing",
+  "Finished and Closed",
+  "Rejected",
+  "Closed"
+};
 ```
 
-An `Activity` represents a single screen in an app.
+`private final static String[] statusStrings;`
 
-The `onCreate()` method will be executed when the activity becomes visible to the user. There are various events that will be triggered when the user quits and launches the activity. Ref: [Android App Lifecycle] (https://developer.android.com/guide/components/activities/activity-lifecycle.html)
+A string array which contains the available status of a Trouble Ticket. The index of each item should be consistent to the [`int statusId`](#ttClass) of a Trouble Ticket.
 
-## Setting Layout (`setLayout()`)
 
-A custom method is implemented to centralized the initiation and layout configuration of visible elements.
+## Trouble Ticket Status Icon
+`private static int[] statusIconResources;`
 
-All visible elements are subclass of `View`. In most cases, using `setVisibility()` and `setOnClickListener()` is enough to implement the required functionalities in this app.
+A list containing the resources of icon shown in Inbox. Again, the index of the icon should follow the order of the status.
 
-For component specific methods: [Android UI Guide](https://developer.android.com/guide/topics/ui/index.html)
+New icon can be added by `File > New > Image Asset`, then putting the corresponding Resource id `R.drawable.xxxxx` in the array.
 
-> Example in `Inbox.java`
+statusId | String | Icon Resource | Icon
+---------|--------|------ |-----
+0|Empty TT| /|
+1|New|`R.drawable.newtt`|<img src="./images/newtt.png" />
+2|Accepting|`R.drawable.waitingtt`|<img src="./images/waitingtt.png" />
+3|Working|`R.drawable.workingtt`|<img src="./images/workingtt.png" />
+4|Finishing|`R.drawable.waitingtt`|<img src="./images/waitingtt.png" />
+5|Finished and Closed|`R.drawable.finishtt`|<img src="./images/finishtt.png" />
+6|Rejected|`R.drawable.rejecttt`|<img src="./images/rejecttt.png" />
+7|Closed|`R.drawable.closett`|<img src="./images/closett.png" />
 
+
+## Reasons / Trouble Cause
 ```java
-private void setLayout() {
-  setContentView(R.layout.activity_main);
+private final static LinkedHashMap reasonsArray = new LinkedHashMap(){{
+  put("Select reason category", new String[]{
+    ""
+  });
+  put("External", new String[]{
+    "Power outage",
+    "Client-side equipment",
+    "Network operator’s equipment",
+    "Network operator’s transmission circuit",
+    "Others"
+  });
+}};
 ```
 
-> This selects the `activity_main.xml` in resources as the layout template, followed by:
+To add new categories of reason, simply add a new `put(String, new String[]{String, String, ...});` in this function. The First string will be the category, followed by the string array which contains the corresponding reasons.
 
-```java
-  searchBtn = (ImageButton) findViewById(R.id.searchBtn);
-  if (searchBtn != null) {
-    searchBtn.setVisibility(View.VISIBLE);
-    searchBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        // When the search button is clicked...
-        searchTxt.setVisibility(View.VISIBLE);
-        title.setVisibility(View.GONE);
-        menu_or_home.setVisibility(View.VISIBLE);
-        filterBtn.setVisibility(View.GONE);
-        notiswitch.setVisibility(View.GONE);
-        menu_or_home.setImageResource(R.drawable.ic_keyboard_backspace_white_24dp);
-        searchBtn.setVisibility(View.GONE);
-      }
-    });
-  }
-}
-```
+An `Other` option will cause a user-input field appear to prompt for input for customized reasons.
 
-> which finds the search button then sets its behaviour.
+The categories and reasons shown in the user interface will remain the same order as they are added.
 
-### Selecting layout files
-`setContentView(R.layout.activity_main);`
+# Activities
 
-### Locating elements
-`searchBtn = (ImageButton) findViewById(R.id.searchBtn);`
+## Splash.java
+A splash screen that request permission before the app starts.
 
-### Setting Visibility and behaviour
-`searchBtn.setVisibility(View.VISIBLE);`
+## Inbox.java
+Shows the list existing Trouble Tickets. Trouble Tickets can be filtered their status with the top-left `filterBtn`.
 
-`searchBtn.setOnClickListener(new View.OnClickListener() {...});`
+The Title and ID of Trouble Tickets can be searched with the top-right `searchBtn`.
 
-## Starting new activity with `Intent`
-An `Intent` is used to transfer data between activities.
+`loadTTList()` will be executed to load and group the SMSs according to their `TTIds` in the format of `001-xxxxxx-yyy`, followed by `parseSMS()` of [`ttClass`](#ttclass) to determine the status, then applying the filter function mentioned above.
 
+Swipe down to reload.
 
+## TTDetail.java
+Shows the details of a Trouble Ticket. The interface changes according to the status.
 
+When the Trouble Ticket is waiting user's `Accept` or `Reject`, only the two buttons will appear.
 
-### Building an `Intent`
-> Example in `Inbox.java` that sends a TT object to activity `TTDetail` to show its detail.
+After Accepting the Trouble Ticket and receiving a `successful` message from the system, the status will turn `Working`. A `Finish` Button with a pull down menu for choosing reasons will appear.
 
-```java
-Intent intent = new Intent(activity, TTDetail.class);
-intent.putExtra("TT", TTListById.get(TTIds.get(position)));
-startActivity(intent);
-```
+In all other cases, there will be no choice of action available.
+## SMSRecord.java
+Displays a complete SMS record between the user and system response on a particular Trouble Ticket.
 
-`Intent intent = new Intent(activity, ActivityName.class);`
+# Object Classes
+## ttClass.java
+Holds the details of Trouble Ticket Object used in this project. It contains a method to parse all sent and received SMSs to a specific Trouble to determine the current status.
 
-Parameter|Description
---|--
-`activity` | the Context of the current activity
-`ActivityName` | the target activity
+In each Current Status, the content of a new SMS will be checked and cause a transition in the status as below:
 
-### Putting objects in the `Intent`
-`intent.putExtra("TT", TTListById.get(TTIds.get(position)));`
+<table>
+  <thead>
+    <th>Current id</th>
+    <th>Name</th>
+    <th>Detects</th>
+    <th>Next</th>
+  </thead>
+  <tr>
+    <td rowspan="2">1</td>
+    <td rowspan="2">New</td>
+    <td>#A#</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>#R#</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td rowspan="3">2</td>
+    <td rowspan="3">Accepting</td>
+    <td>error</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>already closed<br>already finished</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Working</td>
+    <td>#F#</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td rowspan="3">4</td>
+    <td rowspan="3">Finishing</td>
+    <td>error</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>already closed<br>already finished</td>
+    <td>7</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Finished and Closed</td>
+    <td>/</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>Rejected</td>
+    <td>/</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>Closed</td> 
+    <td>/</td>
+    <td></td>
+  </tr>
+</table>
 
-<aside class="notice">
-The object can be in any type. It will be retrieved by the <code>name</code> as a key when the new activity receives the <code>Intent</code>
-</aside>
-
-
-### Starting the activity
-`startActivity(i);`
-
-This initiates the activity.
-
-## Reading the `Intent`
-`Intent intent = getIntent();`
-
-### Getting objects
-For ordinary types like `int`, `String`, `boolean`, etc., data can be retrieved by:
-
-`boolean foo = intent.getBooleanExtra("bar", defaultValue);`
-
-where `defaultValue` will be assigned to `foo` when `bar` does not exist.
-
-For custom types like `ttClass`, the method `getSerializableExtra` will be used and no default value will be assigned.
-
-`ttClass TT = (ttClass) intent.getSerializableExtra("TT");`
-
-# Program Flow
-## Check for permission
-
-# Appearance
-## Splash
-
-
-
-## Inbox
-
-
-
-## TTDetail
-
-
-
-## SMSRecord
+## smsClass.java
+Holds the raw data of a single SMS.
