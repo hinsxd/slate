@@ -3,6 +3,7 @@
 @import 'variables';
 @import 'icon-font';
 
+
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
 
@@ -403,7 +404,7 @@ html, body {
     overflow: auto;
     th,td {
       text-align: left;
-      vertical-align: top;
+      vertical-align: middle;
       line-height: 1.6;
     }
 
@@ -415,6 +416,7 @@ html, body {
 
     td {
       padding: 10px;
+      border-bottom: 1px solid #ccc;
     }
 
     tr:last-child {
