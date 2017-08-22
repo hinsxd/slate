@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>EOMS Editing Documentation</title>
+    <title>EOMS API Reference</title>
 
     <style>
       .highlight table td { padding: 5px; }
@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[]">
+  <body class="index" data-languages="[&quot;java&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -210,6 +210,9 @@
     </a>
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="java">java</a>
+        </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
@@ -219,44 +222,47 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#global-variable-file-code-eoms-java-code" class="toc-h1 toc-link" data-title="Global variable file <code>EOMS.java</code>">Global variable file <code>EOMS.java</code></a>
+            <a href="#code-ttclass-code-a-class-that-stores-tt-details" class="toc-h1 toc-link" data-title="<code>ttClass</code> - a class that stores TT details"><code>ttClass</code> - a class that stores TT details</a>
+          </li>
+          <li>
+            <a href="#android-app-structure" class="toc-h1 toc-link" data-title="Android App structure">Android App structure</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#status-strings" class="toc-h2 toc-link" data-title="Global variable file <code>EOMS.java</code>">Status Strings</a>
+                    <a href="#app-events" class="toc-h2 toc-link" data-title="Android App structure">App events</a>
                   </li>
                   <li>
-                    <a href="#trouble-ticket-status-icon" class="toc-h2 toc-link" data-title="Global variable file <code>EOMS.java</code>">Trouble Ticket Status Icon</a>
+                    <a href="#setting-layout-code-setlayout-code" class="toc-h2 toc-link" data-title="Android App structure">Setting Layout (<code>setLayout()</code>)</a>
                   </li>
                   <li>
-                    <a href="#reasons-trouble-cause" class="toc-h2 toc-link" data-title="Global variable file <code>EOMS.java</code>">Reasons / Trouble Cause</a>
+                    <a href="#starting-new-activity-with-code-intent-code" class="toc-h2 toc-link" data-title="Android App structure">Starting new activity with <code>Intent</code></a>
+                  </li>
+                  <li>
+                    <a href="#reading-the-code-intent-code" class="toc-h2 toc-link" data-title="Android App structure">Reading the <code>Intent</code></a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#activities" class="toc-h1 toc-link" data-title="Activities">Activities</a>
+            <a href="#program-flow" class="toc-h1 toc-link" data-title="Program Flow">Program Flow</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#splash-java" class="toc-h2 toc-link" data-title="Activities">Splash.java</a>
-                  </li>
-                  <li>
-                    <a href="#inbox-java" class="toc-h2 toc-link" data-title="Activities">Inbox.java</a>
-                  </li>
-                  <li>
-                    <a href="#ttdetail-java" class="toc-h2 toc-link" data-title="Activities">TTDetail.java</a>
-                  </li>
-                  <li>
-                    <a href="#smsrecord-java" class="toc-h2 toc-link" data-title="Activities">SMSRecord.java</a>
+                    <a href="#check-for-permission" class="toc-h2 toc-link" data-title="Program Flow">Check for permission</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#object-classes" class="toc-h1 toc-link" data-title="Object Classes">Object Classes</a>
+            <a href="#appearance" class="toc-h1 toc-link" data-title="Appearance">Appearance</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#ttclass-java" class="toc-h2 toc-link" data-title="Object Classes">ttClass.java</a>
+                    <a href="#splash" class="toc-h2 toc-link" data-title="Appearance">Splash</a>
                   </li>
                   <li>
-                    <a href="#smsclass-java" class="toc-h2 toc-link" data-title="Object Classes">smsClass.java</a>
+                    <a href="#inbox" class="toc-h2 toc-link" data-title="Appearance">Inbox</a>
+                  </li>
+                  <li>
+                    <a href="#ttdetail" class="toc-h2 toc-link" data-title="Appearance">TTDetail</a>
+                  </li>
+                  <li>
+                    <a href="#smsrecord" class="toc-h2 toc-link" data-title="Appearance">SMSRecord</a>
                   </li>
               </ul>
           </li>
@@ -269,205 +275,172 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>This is a documentation for editing the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.</p>
+<p>This is a documentation for the EOMS Android App prototype for handling SMS to interact with the EOMS Trouble Tickets system.</p>
 
 <p>This documentation page was created with <a href="https://github.com/tripit/slate">Slate</a> and the App was created with <a href="https://developer.android.com/studio/index.html">Android Studio</a> using the template <a href="https://github.com/IOException722/SmsBiz">Smsbiz</a>.</p>
-<h1 id='global-variable-file-code-eoms-java-code'>Global variable file <code>EOMS.java</code></h1><h2 id='status-strings'>Status Strings</h2><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span><span class="o">[]</span> <span class="n">statusStrings</span> <span class="o">=</span> <span class="o">{</span>
-  <span class="s">"Empty TT"</span><span class="o">,</span>
-  <span class="s">"New"</span><span class="o">,</span>
-  <span class="s">"Accepting"</span><span class="o">,</span>
-  <span class="s">"Working"</span><span class="o">,</span>
-  <span class="s">"Finishing"</span><span class="o">,</span>
-  <span class="s">"Finished and Closed"</span><span class="o">,</span>
-  <span class="s">"Rejected"</span><span class="o">,</span>
-  <span class="s">"Closed"</span>
-<span class="o">};</span>
-</code></pre>
-<p><code>private final static String[] statusStrings;</code></p>
-
-<p>A string array which contains the available status of a Trouble Ticket. The index of each item should be consistent to the <a href="#ttClass"><code>int statusId</code></a> of a Trouble Ticket.</p>
-<h2 id='trouble-ticket-status-icon'>Trouble Ticket Status Icon</h2>
-<p><code>private static int[] statusIconResources;</code></p>
-
-<p>A list containing the resources of icon shown in Inbox. Again, the index of the icon should follow the order of the status.</p>
-
-<p>New icon can be added by <code>File &gt; New &gt; Image Asset</code>, then putting the corresponding Resource id <code>R.drawable.xxxxx</code> in the array.</p>
-
+<h1 id='code-ttclass-code-a-class-that-stores-tt-details'><code>ttClass</code> - a class that stores TT details</h1>
 <table><thead>
 <tr>
-<th>statusId</th>
-<th>String</th>
-<th>Icon Resource</th>
-<th>Icon</th>
+<th>Class Method</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>0</td>
-<td>Empty TT</td>
-<td>/</td>
-<td></td>
+<td><code>String getTTId()</code></td>
+<td>Return the Trouble Ticket ID in format <code>001-xxxxxx-yyy</code></td>
 </tr>
 <tr>
-<td>1</td>
-<td>New</td>
-<td><code>R.drawable.newtt</code></td>
-<td><img src="./images/newtt.png" /></td>
+<td><code>String getTitle()</code></td>
+<td>Return the Trouble Ticket Title</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Accepting</td>
-<td><code>R.drawable.waitingtt</code></td>
-<td><img src="./images/waitingtt.png" /></td>
+<td><code>int getStatusId()</code></td>
+<td>Return an integer that corresponds to different status</td>
 </tr>
 <tr>
-<td>3</td>
-<td>Working</td>
-<td><code>R.drawable.workingtt</code></td>
-<td><img src="./images/workingtt.png" /></td>
+<td><code>String[] getStrings()</code></td>
+<td>Return a string array that contains the names of different status</td>
 </tr>
 <tr>
-<td>4</td>
-<td>Finishing</td>
-<td><code>R.drawable.waitingtt</code></td>
-<td><img src="./images/waitingtt.png" /></td>
+<td><code>String getCreateTime()</code></td>
+<td>Return the create time of the Trouble Ticket in format <code>yyyy-MM-dd HH:mm:ss</code></td>
 </tr>
 <tr>
-<td>5</td>
-<td>Finished and Closed</td>
-<td><code>R.drawable.finishtt</code></td>
-<td><img src="./images/finishtt.png" /></td>
+<td><code>String getUpdateTime()</code></td>
+<td>Return received time of the latest SMS in format <code>yyyy-MM-dd HH:mm:ss</code></td>
 </tr>
 <tr>
-<td>6</td>
-<td>Rejected</td>
-<td><code>R.drawable.rejecttt</code></td>
-<td><img src="./images/rejecttt.png" /></td>
+<td><code>String getOriginator()</code></td>
+<td>Return the name of the originator of the Trouble Ticket</td>
 </tr>
 <tr>
-<td>7</td>
-<td>Closed</td>
-<td><code>R.drawable.closett</code></td>
-<td><img src="./images/closett.png" /></td>
+<td><code>ArrayList&lt;smsClass&gt; getSms()</code></td>
+<td>Return an ArrayList of SMSs of this Trouble Ticket</td>
+</tr>
+<tr>
+<td><code>void putSms(smsClass sms)</code></td>
+<td>Add an SMS to the record of this Trouble Ticket</td>
+</tr>
+<tr>
+<td><code>void parseSms()</code></td>
+<td>Parse all SMSs under this Trouble Ticket chronologically to determine the current status</td>
 </tr>
 </tbody></table>
-<h2 id='reasons-trouble-cause'>Reasons / Trouble Cause</h2><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">LinkedHashMap</span> <span class="n">reasonsArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">(){{</span>
-  <span class="n">put</span><span class="o">(</span><span class="s">"Select reason category"</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span>
-    <span class="s">""</span>
-  <span class="o">});</span>
-  <span class="n">put</span><span class="o">(</span><span class="s">"External"</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span>
-    <span class="s">"Power outage"</span><span class="o">,</span>
-    <span class="s">"Client-side equipment"</span><span class="o">,</span>
-    <span class="s">"Network operator’s equipment"</span><span class="o">,</span>
-    <span class="s">"Network operator’s transmission circuit"</span><span class="o">,</span>
-    <span class="s">"Others"</span>
-  <span class="o">});</span>
-<span class="o">}};</span>
+
+<p>Explanation for <code>putSms()</code> and <code>parseSms()</code> can be found in <a href="#program-flow">Program Flow</a></p>
+<h1 id='android-app-structure'>Android App structure</h1><h2 id='app-events'>App events</h2>
+<blockquote>
+<p>This will be executed when the <code>Activity</code> Loads.</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+  <span class="o">...</span>
+<span class="o">}</span>
 </code></pre>
-<p>To add new categories of reason, simply add a new <code>put(String, new String[]{String, String, ...});</code> in this function. The First string will be the category, followed by the string array which contains the corresponding reasons.</p>
+<p>An <code>Activity</code> represents a single screen in an app.</p>
 
-<p>An <code>Other</code> option will cause a user-input field appear to prompt for input for customized reasons.</p>
+<p>The <code>onCreate()</code> method will be executed when the activity becomes visible to the user. There are various events that will be triggered when the user quits and launches the activity. Ref: <a href="https://developer.android.com/guide/components/activities/activity-lifecycle.html">Android App Lifecycle</a></p>
+<h2 id='setting-layout-code-setlayout-code'>Setting Layout (<code>setLayout()</code>)</h2>
+<p>A custom method is implemented to centralized the initiation and layout configuration of visible elements.</p>
 
-<p>The categories and reasons shown in the user interface will remain the same order as they are added.</p>
-<h1 id='activities'>Activities</h1><h2 id='splash-java'>Splash.java</h2>
-<p>A splash screen that request permission before the app starts.</p>
-<h2 id='inbox-java'>Inbox.java</h2>
-<p>Shows the list existing Trouble Tickets. Trouble Tickets can be filtered their status with the top-left <code>filterBtn</code>.</p>
+<p>All visible elements are subclass of <code>View</code>. In most cases, using <code>setVisibility()</code> and <code>setOnClickListener()</code> is enough to implement the required functionalities in this app.</p>
 
-<p>The Title and ID of Trouble Tickets can be searched with the top-right <code>searchBtn</code>.</p>
+<p>For component specific methods: <a href="https://developer.android.com/guide/topics/ui/index.html">Android UI Guide</a></p>
 
-<p><code>loadTTList()</code> will be executed to load and group the SMSs according to their <code>TTIds</code> in the format of <code>001-xxxxxx-yyy</code>, followed by <code>parseSMS()</code> of <a href="#ttclass"><code>ttClass</code></a> to determine the status, then applying the filter function mentioned above.</p>
+<blockquote>
+<p>Example in <code>Inbox.java</code></p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">setLayout</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+</code></pre>
+<blockquote>
+<p>This selects the <code>activity_main.xml</code> in resources as the layout template, followed by:</p>
+</blockquote>
+<pre class="highlight java tab-java"><code>  <span class="n">searchBtn</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageButton</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">searchBtn</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">searchBtn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">searchBtn</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+    <span class="n">searchBtn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// When the search button is clicked...</span>
+        <span class="n">searchTxt</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+        <span class="n">title</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">GONE</span><span class="o">);</span>
+        <span class="n">menu_or_home</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">);</span>
+        <span class="n">filterBtn</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">GONE</span><span class="o">);</span>
+        <span class="n">notiswitch</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">GONE</span><span class="o">);</span>
+        <span class="n">menu_or_home</span><span class="o">.</span><span class="na">setImageResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">ic_keyboard_backspace_white_24dp</span><span class="o">);</span>
+        <span class="n">searchBtn</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">GONE</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">});</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>which finds the search button then sets its behaviour.</p>
+</blockquote>
+<h3 id='selecting-layout-files'>Selecting layout files</h3>
+<p><code>setContentView(R.layout.activity_main);</code></p>
+<h3 id='locating-elements'>Locating elements</h3>
+<p><code>searchBtn = (ImageButton) findViewById(R.id.searchBtn);</code></p>
+<h3 id='setting-visibility-and-behaviour'>Setting Visibility and behaviour</h3>
+<p><code>searchBtn.setVisibility(View.VISIBLE);</code></p>
 
-<p>Swipe down to reload.</p>
-<h2 id='ttdetail-java'>TTDetail.java</h2>
-<p>Shows the details of a Trouble Ticket. The interface changes according to the status.</p>
+<p><code>searchBtn.setOnClickListener(new View.OnClickListener() {...});</code></p>
+<h2 id='starting-new-activity-with-code-intent-code'>Starting new activity with <code>Intent</code></h2>
+<p>An <code>Intent</code> is used to transfer data between activities.</p>
+<h3 id='building-an-code-intent-code'>Building an <code>Intent</code></h3>
+<blockquote>
+<p>Example in <code>Inbox.java</code> that sends a TT object to activity <code>TTDetail</code> to show its detail.</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">activity</span><span class="o">,</span> <span class="n">TTDetail</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"TT"</span><span class="o">,</span> <span class="n">TTListById</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">TTIds</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">position</span><span class="o">)));</span>
+<span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</code></pre>
+<p><code>Intent intent = new Intent(activity, ActivityName.class);</code></p>
 
-<p>When the Trouble Ticket is waiting user&#39;s <code>Accept</code> or <code>Reject</code>, only the two buttons will appear.</p>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>activity</code></td>
+<td>the Context of the current activity</td>
+</tr>
+<tr>
+<td><code>ActivityName</code></td>
+<td>the target activity</td>
+</tr>
+</tbody></table>
+<h3 id='putting-objects-in-the-code-intent-code'>Putting objects in the <code>Intent</code></h3>
+<p><code>intent.putExtra(&quot;TT&quot;, TTListById.get(TTIds.get(position)));</code></p>
 
-<p>After Accepting the Trouble Ticket and receiving a <code>successful</code> message from the system, the status will turn <code>Working</code>. A <code>Finish</code> Button with a pull down menu for choosing reasons will appear.</p>
+<aside class="notice">
+The object can be in any type. It will be retrieved by the <code>name</code> as a key when the new activity receives the <code>Intent</code>
+</aside>
+<h3 id='starting-the-activity'>Starting the activity</h3>
+<p><code>startActivity(i);</code></p>
 
-<p>In all other cases, there will be no choice of action available.</p>
-<h2 id='smsrecord-java'>SMSRecord.java</h2>
-<p>Displays a complete SMS record between the user and system response on a particular Trouble Ticket.</p>
-<h1 id='object-classes'>Object Classes</h1><h2 id='ttclass-java'>ttClass.java</h2>
-<p>Holds the details of Trouble Ticket Object used in this project. It contains a method to parse all sent and received SMSs to a specific Trouble to determine the current status.</p>
+<p>This initiates the activity.</p>
+<h2 id='reading-the-code-intent-code'>Reading the <code>Intent</code></h2>
+<p><code>Intent intent = getIntent();</code></p>
+<h3 id='getting-objects'>Getting objects</h3>
+<p>For ordinary types like <code>int</code>, <code>String</code>, <code>boolean</code>, etc., data can be retrieved by:</p>
 
-<p>In each Current Status, the content of a new SMS will be checked and cause a transition in the status as below:</p>
+<p><code>boolean foo = intent.getBooleanExtra(&quot;bar&quot;, defaultValue);</code></p>
 
-<table>
-  <thead>
-    <th>Current id</th>
-    <th>Name</th>
-    <th>Detects</th>
-    <th>Next</th>
-  </thead>
-  <tr>
-    <td rowspan="2">1</td>
-    <td rowspan="2">New</td>
-    <td>#A#</td>
-    <td>2</td>
-  </tr>
-  <tr>
-    <td>#R#</td>
-    <td>6</td>
-  </tr>
-  <tr>
-    <td rowspan="3">2</td>
-    <td rowspan="3">Accepting</td>
-    <td>error</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>success</td>
-    <td>3</td>
-  </tr>
-  <tr>
-    <td>already closed<br>already finished</td>
-    <td>7</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>Working</td>
-    <td>#F#</td>
-    <td>4</td>
-  </tr>
-  <tr>
-    <td rowspan="3">4</td>
-    <td rowspan="3">Finishing</td>
-    <td>error</td>
-    <td>3</td>
-  </tr>
-  <tr>
-    <td>success</td>
-    <td>5</td>
-  </tr>
-  <tr>
-    <td>already closed<br>already finished</td>
-    <td>7</td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>Finished and Closed</td>
-    <td>/</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>6</td>
-    <td>Rejected</td>
-    <td>/</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>7</td>
-    <td>Closed</td>
-    <td>/</td>
-    <td></td>
-  </tr>
-</table>
-<h2 id='smsclass-java'>smsClass.java</h2>
-<p>Holds the raw data of an SMS.</p>
+<p>where <code>defaultValue</code> will be assigned to <code>foo</code> when <code>bar</code> does not exist.</p>
 
+<p>For custom types like <code>ttClass</code>, the method <code>getSerializableExtra</code> will be used and no default value will be assigned.</p>
+
+<p><code>ttClass TT = (ttClass) intent.getSerializableExtra(&quot;TT&quot;);</code></p>
+<h1 id='program-flow'>Program Flow</h1><h2 id='check-for-permission'>Check for permission</h2><h1 id='appearance'>Appearance</h1><h2 id='splash'>Splash</h2><h2 id='inbox'>Inbox</h2><h2 id='ttdetail'>TTDetail</h2><h2 id='smsrecord'>SMSRecord</h2>
       </div>
       <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="java">java</a>
+          </div>
       </div>
     </div>
   </body>
